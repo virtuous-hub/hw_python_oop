@@ -4,6 +4,7 @@ from typing import List
 
 class InfoMessage:
     """Информационное сообщение о тренировке."""
+
     def __init__(self,
                  training_type: str,
                  duration: float,
@@ -71,7 +72,7 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         return ((self.coeff_calorie_1 * self.get_mean_speed()
-                - self.coeff_calorie_2) * self.weight
+                 - self.coeff_calorie_2) * self.weight
                 / self.M_IN_KM * (self.duration * self.M_IN_KM_HOUR))
 
 
@@ -92,8 +93,8 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         return ((self.coeff_one * self.weight
-                + (self.get_mean_speed()**self.coeff_two
-                // self.height) * self.coeff_three * self.weight)
+                 + (self.get_mean_speed() ** self.coeff_two
+                    // self.height) * self.coeff_three * self.weight)
                 * (self.duration * self.M_IN_KM_HOUR))
 
 
