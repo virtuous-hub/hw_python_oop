@@ -88,12 +88,13 @@ class SportsWalking(Training):
                  height: float
                  ) -> None:
         super().__init__(action, duration, weight)
-        self.height = height #добавлен рост спортсмена
+        self.height = height
 
     def get_spent_calories(self) -> float:
         return ((self.coeff_one * self.weight
-                 + (self.get_mean_speed()**self.coeff_two // self.height)
-                 * self.coeff_three * self.weight) * (self.duration * self.M_IN_KM_HOUR))
+                + (self.get_mean_speed()**self.coeff_two
+                // self.height) * self.coeff_three * self.weight)
+                * (self.duration * self.M_IN_KM_HOUR))
 
 
 class Swimming(Training):
@@ -125,11 +126,10 @@ def read_package(workout_type: str, data: List[str]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     try:
-        training_type: Dict[str,Type[Training]] = {
-            "SWM" : Swimming,
-            "RUN" : Running,
-            "WLK" : SportsWalking
-            }
+        training_type: Dict[str, Type[Training]] = {
+            "SWM": Swimming,
+            "RUN": Running,
+            "WLK": SportsWalking}
         return training_type[workout_type](*data)
     except KeyError:
         raise KeyError("Неизвестный тип тренировки")
@@ -153,5 +153,3 @@ if __name__ == '__main__':
     for workout_type, data in packages:
         training = read_package(workout_type, data)
         main(training)
-
-
