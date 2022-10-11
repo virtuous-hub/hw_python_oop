@@ -16,6 +16,7 @@ class InfoMessage:
         self.distance = distance
         self.speed = speed
         self.calories = calories
+
     def get_message(self):
         return (f"Тип тренировки: {self.training_type}; "
                 f"Длительность: {self.duration:.3f} ч.; "
@@ -38,21 +39,17 @@ class Training:
         self.duration = duration    #продолжительность
         self.weight = weight        #вес
 
-
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
         return self.action * self.LEN_STEP / self.M_IN_KM
-
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
         return self.get_distance() / self.duration
 
-
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         pass
-
 
     def get_spent_calories_swimming(self):
         return (self.get_swimming_speed() + 1.1) * 2 * self.weight
