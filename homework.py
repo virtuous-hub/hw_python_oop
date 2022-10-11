@@ -21,8 +21,9 @@ class InfoMessage:
         return (f"Тип тренировки: {self.training_type}; "
                 f"Длительность: {self.duration:.3f} ч.; "
                 f"Дистанция: {self.distance:.3f} км; "
-                f"Ср. скорость: {self.speed:.3f} км/ч; " 
+                f"Ср. скорость: {self.speed:.3f} км/ч; "
                 f"Потрачено ккал: {self.calories:.3f}.")
+
 
 class Training:
     """Базовый класс тренировки."""
@@ -35,9 +36,9 @@ class Training:
                  duration: float,
                  weight: float
                  ) -> None:
-        self.action = action        #действие
-        self.duration = duration    #продолжительность
-        self.weight = weight        #вес
+        self.action = action
+        self.duration = duration
+        self.weight = weight
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -67,14 +68,19 @@ class Running(Training):
     """Тренировка: бег."""
     coeff_calorie_1: int = 18
     coeff_calorie_2: int = 20
+
     def get_spent_calories(self) -> float:
-        return ((self.coeff_calorie_1 * self.get_mean_speed() - self.coeff_calorie_2)
-                * self.weight / self.M_IN_KM * (self.duration * self.M_IN_KM_HOUR))
+        return ((self.coeff_calorie_1 * self.get_mean_speed()
+                - self.coeff_calorie_2) * self.weight
+                / self.M_IN_KM * (self.duration * self.M_IN_KM_HOUR))
+
+
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     coeff_one: float = 0.035
     coeff_two: int = 2
     coeff_three: float = 0.029
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -95,6 +101,7 @@ class Swimming(Training):
     LEN_STEP: float = 1.38
     cf_1: float = 1.1
     cf_2: int = 2
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -114,9 +121,6 @@ class Swimming(Training):
         return (self.get_mean_speed() + self.cf_1) * self.cf_2 * self.weight
 
 
-
-
-
 def read_package(workout_type: str, data: List[str]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
@@ -131,7 +135,6 @@ def read_package(workout_type: str, data: List[str]) -> Training:
         raise KeyError("Неизвестный тип тренировки")
     except TypeError:
         raise TypeError("Некорректные данные")
-
 
 
 def main(training: Training) -> None:
